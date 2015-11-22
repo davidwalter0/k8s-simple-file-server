@@ -11,6 +11,7 @@ SIMPLE_FILE_SERVER_HOST to set the host interface to serve. The default is all.
 SIMPLE_FILE_SERVER_PATH not set or using .. to subvert paths, using /target instead
 SIMPLE_FILE_SERVER_PORT not set, using 8080
 SIMPLE_FILE_SERVER_HOST not set, default bind all
+```
 
 *Defaults*
 
