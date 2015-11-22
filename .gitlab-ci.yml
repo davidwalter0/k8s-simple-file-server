@@ -6,7 +6,7 @@ build-k8s-simple-file-server:
     - ./dockerize
     - bin/slack-status k8s-simple-file-server-dockerize ${?}
   only:
-    - k8s-cfg
+    - master
   tags:
     - shell
     - ssh
