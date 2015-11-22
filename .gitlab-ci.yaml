@@ -1,0 +1,12 @@
+build-k8s-simple-file-server:
+  script: 
+    - echo "${HOSTNAME}" $(pwd) $(date)
+    - ./build
+    - bin/slack-status k8s-simple-file-server-build ${?}
+    - ./dockerize
+    - bin/slack-status k8s-simple-file-server-dockerize ${?}
+  only:
+    - k8s-cfg
+  tags:
+    - shell
+    - ssh

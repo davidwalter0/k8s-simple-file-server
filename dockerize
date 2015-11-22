@@ -1,0 +1,17 @@
+#!/bin/bash
+dir=$(dirname $(readlink -f ${0}))
+cd ${dir}
+name=${dir##*/}
+cat > Dockerfile <<EOF
+FROM centos:latest
+COPY bin/${name} /${name}
+CMD [ "/${name}" ]
+EOF
+
+image=${name}:latest
+master=k8s-master-01
+target=${master}:5000/${image}
+if docker build --force-rm --rm --tag ${image} . ; then
+    docker tag -f ${image} ${target}
+    docker push ${target}
+fi
