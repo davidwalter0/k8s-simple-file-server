@@ -10,5 +10,3 @@ build-k8s-simple-file-server:
   tags:
     - shell
     - ssh
-
-    
