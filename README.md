@@ -1,5 +1,6 @@
 ### k8s-simple-file-server
 
+git-stamp: 2015.11.22T.17.42.34.-05:00:00 at test build
 *trivial file server*
 
 ```
@@ -14,6 +15,7 @@ SIMPLE_FILE_SERVER_HOST not set, default bind all
 ```
 
 *Defaults*
+
 
 ```
 PATH to serve  :/var/opt/simple-file-server/data
