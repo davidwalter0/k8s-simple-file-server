@@ -10,6 +10,5 @@ if go version|grep -q 1.5 ; then
 fi
 export GOPATH=/go:${dir}/vendor
 go get
-CGO_ENABLED=0 go get --tags netgo -ldflags "${args}" 
 CGO_ENABLED=0 go build --tags netgo -ldflags "${args}" -o ${dir}/bin/${name} ${name}.go
 
