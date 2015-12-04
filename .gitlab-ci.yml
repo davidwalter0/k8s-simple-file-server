@@ -16,7 +16,7 @@ build-k8s-simple-file-server:
   stage: build
   script: 
     - echo "${HOSTNAME}" $(pwd) $(date)
-   - ./build
+    - ./build
     - rc=$?
     - if (( debug )); then echo bin/slack-status --step=${step} --gitlab-host=${gitlab_host} --gitlab-port=${gitlab_port} --gitlab-user=${gitlab_user} --slack-url=${config_url} --rc=${?}; fi
     - bin/slack-status --step=${step} --gitlab-host=${gitlab_host} --gitlab-port=${gitlab_port} --gitlab-user=${gitlab_user} --slack-url=${config_url} --rc=${?}
