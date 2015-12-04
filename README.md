@@ -1,5 +1,7 @@
 ### k8s-simple-file-server
 
+[![build status](http://128.107.15.211:8888/ci/projects/6/status.png?ref=master)](http://128.107.15.211:8888/ci/projects/6?ref=master)
+
 *trivial file server*
 
 ```
