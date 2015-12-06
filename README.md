@@ -1,6 +1,5 @@
 ### k8s-simple-file-server
-[![build status](http://128.107.14.75:8888/ci/projects/3/status.png?ref=master)](http://128.107.14.75:8888/ci/projects/3?ref=master)
-
+[![build status](https://128.107.14.75/ci/projects/4/status.png?ref=master)](https://128.107.14.75/ci/projects/4?ref=master)
 
 *trivial file server*
 
