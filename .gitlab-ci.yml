@@ -43,7 +43,8 @@ build-k8s-simple-file-server:
 
   only:
     # - master
-    - /v0.*/
+    - /^v.*$/ # use regexp
+    # - /v0.*/
     
 #  only:
 #    - branches@gitlab-org/gitlab-ce
