@@ -1,0 +1,57 @@
+stages:
+  - build
+  
+variables:
+  gitlab_user:       "build.bot.0.cis.paas"
+  gitlab_host:       "128.107.15.214"
+  gitlab_port:       "8005"
+  slack:             "http://k8s-canary-ci-secrets/slack.sh"
+  config_url:        "http://k8s-canary-ci-secrets/slack.url"
+  secret_url:        "http://k8s-canary-ci-secrets/kubeconfig"
+  deploy_yaml:       "http://k8s-canary-ci-secrets/deploy.yaml"
+  debug:             "1"
+  registry:          "k8s-canary-registry:5000"
+  GIT_SSL_NO_VERIFY: "1"
+  GIT_SSL_CAINFO:    "${HOME}/.private/gitlab.crt"
+
+build-k8s-simple-file-server:
+  stage: build
+  script: 
+    - set +x
+    - echo "===================================="; env
+    - echo "===================================="; set
+    - mkdir -p bin; wget -O bin/slack.sh ${slack}; chmod +x bin/slack.sh
+    - export GOPATH=/go
+    - export PATH=${GOPATH}/bin:${PATH}
+    - echo "${HOSTNAME}" $(pwd) $(date)
+    - wget -O bin/slack.sh ${slack};
+    - chmod +x bin/slack.sh
+    - step=build
+    - ./build
+    - rc=$?
+    - if (( debug )); then echo bin/slack.sh --step=${step} --gitlab-host=${gitlab_host} --gitlab-port=${gitlab_port} --gitlab-user=${gitlab_user} --slack-url=${config_url} --rc=${?}; fi
+    - bin/slack.sh --step=${step} --gitlab-host=${gitlab_host} --gitlab-port=${gitlab_port} --gitlab-user=${gitlab_user} --slack-url=${config_url} --rc=${?}
+    - step=dockerize
+    - ./dockerize
+    - rc=$?
+    - if (( debug )); then echo bin/slack.sh --step=${step} --gitlab-host=${gitlab_host} --gitlab-port=${gitlab_port} --gitlab-user=${gitlab_user} --slack-url=${config_url} --rc=${?}; fi
+    - bin/slack.sh --step=${step} --gitlab-host=${gitlab_host} --gitlab-port=${gitlab_port} --gitlab-user=${gitlab_user} --slack-url=${config_url} --rc=${?}
+#  artifacts:
+#    untracked: true
+#    paths:
+#    - bin/
+
+  only:
+    - branches@master/develop
+    - /^v.*$/ # use regexp
+    # - /v0.*/
+    
+#  only:
+#    - branches@gitlab-org/gitlab-ce
+#  except:
+#    - master@gitlab-org/gitlab-ce
+    
+    
+  tags:
+    - shell
+    - ssh
