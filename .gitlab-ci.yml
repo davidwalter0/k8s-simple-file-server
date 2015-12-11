@@ -33,10 +33,10 @@ build-k8s-simple-file-server:
     - rc=$?
     - if (( debug )); then echo bin/slack.sh --step=${step} --gitlab-host=${gitlab_host} --gitlab-port=${gitlab_port} --gitlab-user=${gitlab_user} --slack-url=${config_url} --rc=${?}; fi
     - bin/slack.sh --step=${step} --gitlab-host=${gitlab_host} --gitlab-port=${gitlab_port} --gitlab-user=${gitlab_user} --slack-url=${config_url} --rc=${?}
-  artifacts:
-    untracked: true
-    paths:
-    - bin/
+#  artifacts:
+#    untracked: true
+#    paths:
+#    - bin/
 
   only:
     - master
