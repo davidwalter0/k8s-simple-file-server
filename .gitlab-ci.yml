@@ -36,26 +36,26 @@ build-k8s-simple-file-server:
     - rc=$?
     - if (( debug )); then echo bin/slack.sh --step=${step} --gitlab-host=${gitlab_host} --gitlab-port=${gitlab_port} --gitlab-user=${gitlab_user} --slack-url=${config_url} --rc=${?}; fi
     - bin/slack.sh --step=${step} --gitlab-host=${gitlab_host} --gitlab-port=${gitlab_port} --gitlab-user=${gitlab_user} --slack-url=${config_url} --rc=${?}
-#  artifacts:
-#    untracked: true
-#    paths:
-#    - bin/
+
+  # artifacts:
+  #   untracked: true
+  #   paths:
+  #   - bin/
 
   only:
-    - branches@master/develop
+    - master
+    - release
+    - branches@github.com/davidwalter0
     - /^v.*$/ # use regexp
     - /^release.*$/ # use regexp
     # - /v0.*/
- except:
-# tag on the same commit _not_ processed.
+  except:
+    # tag on the same commit _not_ processed.
     - /^v.X.*$/
-    
 #  only:
 #    - branches@gitlab-org/gitlab-ce
 #  except:
 #    - master@gitlab-org/gitlab-ce
-    
-    
   tags:
     - shell
     - ssh
