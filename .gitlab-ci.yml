@@ -1,3 +1,9 @@
+    
+artifacts:
+  untracked: true
+  paths:
+  - bin/
+
 stages:
   - build
   
@@ -52,8 +58,3 @@ build-k8s-simple-file-server:
   tags:
     - shell
     - ssh
-    
-artifacts:
-  untracked: true
-  paths:
-  - bin/
