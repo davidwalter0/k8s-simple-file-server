@@ -41,7 +41,8 @@ build-k8s-simple-file-server:
 
   only:
     - master
-    - branches@master/develop
+    - release
+    - branches@github.com/davidwalter0
     - /^v.*$/ # use regexp
     - /^release.*$/ # use regexp
     # - /v0.*/
