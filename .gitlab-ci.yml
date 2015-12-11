@@ -46,7 +46,7 @@ build-k8s-simple-file-server:
     - master
     - release
     - branches@github.com/davidwalter0
-    - /^v[0-9]*\.[0-9]*$/ # use regexp
+    - /^v[0-9]*\.[0-9]*\.[0-9]*$/ # use regexp
     - /^release.*$/ # use regexp
     # - /v0.*/
   except:
