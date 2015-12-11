@@ -17,6 +17,9 @@ variables:
 build-k8s-simple-file-server:
   stage: build
   script: 
+    - set +x
+    - echo "===================================="; env
+    - echo "===================================="; set
     - mkdir -p bin; wget -O bin/slack.sh ${slack}; chmod +x bin/slack.sh
     - export GOPATH=/go
     - export PATH=${GOPATH}/bin:${PATH}
