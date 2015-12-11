@@ -42,7 +42,7 @@ build-k8s-simple-file-server:
 #    - bin/
 
   only:
-    - branches master,develop
+    - branches master
     # - branches develop
     # - tags /v0.*/
     
