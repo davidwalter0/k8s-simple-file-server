@@ -46,6 +46,8 @@ build-k8s-simple-file-server:
     - /^v.*$/ # use regexp
     - /^release.*$/ # use regexp
     # - /v0.*/
+ except:
+    - /^v.X.*$/
     
 #  only:
 #    - branches@gitlab-org/gitlab-ce
