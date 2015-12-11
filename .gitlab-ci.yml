@@ -42,7 +42,15 @@ build-k8s-simple-file-server:
 #    - bin/
 
   only:
-    - master
+    - branches master,develop
+    - tags /v0.*/
+    
+#  only:
+#    - branches@gitlab-org/gitlab-ce
+#  except:
+#    - master@gitlab-org/gitlab-ce
+    
+    
   tags:
     - shell
     - ssh
