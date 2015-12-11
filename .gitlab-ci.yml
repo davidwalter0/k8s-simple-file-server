@@ -43,7 +43,7 @@ build-k8s-simple-file-server:
 
   only:
     # - master
-    - tags /v0.*/
+    - /v0.*/
     
 #  only:
 #    - branches@gitlab-org/gitlab-ce
