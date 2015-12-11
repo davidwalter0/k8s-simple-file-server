@@ -47,6 +47,7 @@ build-k8s-simple-file-server:
     - /^release.*$/ # use regexp
     # - /v0.*/
  except:
+# tag on the same commit _not_ processed.
     - /^v.X.*$/
     
 #  only:
