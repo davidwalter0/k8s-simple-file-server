@@ -42,7 +42,7 @@ build-k8s-simple-file-server:
 #    - bin/
 
   only:
-    # - master
+    - branches@master/develop
     - /^v.*$/ # use regexp
     # - /v0.*/
     
