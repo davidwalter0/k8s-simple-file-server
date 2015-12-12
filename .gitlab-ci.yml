@@ -1,61 +1,77 @@
 stages:
   - build
-  
+  - deploy
+
 variables:
-  gitlab_user:       "build.bot.0.cis.paas"
-  gitlab_host:       "128.107.15.214"
-  gitlab_port:       "8005"
-  slack:             "http://k8s-canary-ci-secrets/slack.sh"
-  config_url:        "http://k8s-canary-ci-secrets/slack.url"
-  secret_url:        "http://k8s-canary-ci-secrets/kubeconfig"
-  deploy_yaml:       "http://k8s-canary-ci-secrets/deploy.yaml"
-  debug:             "1"
-  registry:          "k8s-canary-registry:5000"
+  ########################################################################
+  # Enable the internal registry certificate location which is provided in
+  # the secrets for the builder
+  ########################################################################
   GIT_SSL_NO_VERIFY: "1"
   GIT_SSL_CAINFO:    "${HOME}/.private/gitlab.crt"
 
 build-k8s-simple-file-server:
   stage: build
-  script: 
-    - set +x
-    - echo "===================================="; env
-    - echo "===================================="; set
-    - mkdir -p bin; wget -O bin/slack.sh ${slack}; chmod +x bin/slack.sh
-    - export GOPATH=/go
-    - export PATH=${GOPATH}/bin:${PATH}
-    - echo "${HOSTNAME}" $(pwd) $(date)
-    - wget -O bin/slack.sh ${slack};
-    - chmod +x bin/slack.sh
-    - step=build
-    - ./build
-    - rc=$?
-    - if (( debug )); then echo bin/slack.sh --step=${step} --gitlab-host=${gitlab_host} --gitlab-port=${gitlab_port} --gitlab-user=${gitlab_user} --slack-url=${config_url} --rc=${?}; fi
-    - bin/slack.sh --step=${step} --gitlab-host=${gitlab_host} --gitlab-port=${gitlab_port} --gitlab-user=${gitlab_user} --slack-url=${config_url} --rc=${?}
-    - step=dockerize
-    - ./dockerize
-    - rc=$?
-    - if (( debug )); then echo bin/slack.sh --step=${step} --gitlab-host=${gitlab_host} --gitlab-port=${gitlab_port} --gitlab-user=${gitlab_user} --slack-url=${config_url} --rc=${?}; fi
-    - bin/slack.sh --step=${step} --gitlab-host=${gitlab_host} --gitlab-port=${gitlab_port} --gitlab-user=${gitlab_user} --slack-url=${config_url} --rc=${?}
-#  artifacts:
-#    untracked: true
-#    paths:
-#    - bin/
+  script:
+    - |
+      set +x
+      curl -s -o env http://k8s-secrets-service/env
+      # configure environment from secrets service
+      . ./env
+      curl -s -o slack.sh ${slack};
+      chmod +x slack.sh
+      export GOPATH=/go
+      export PATH=${GOPATH}/bin:${PATH}:${PWD}
+      echo "${HOSTNAME}" $(pwd) $(date)
+      step=build
+      ./build
+      rc=$?
+      if (( debug )); then echo ./slack.sh --step=${step} --gitlab-host=${gitlab_host} --gitlab-port=${gitlab_port} --gitlab-user=${gitlab_user} --slack-url=${config_url} --rc=${?}; fi
+      ./slack.sh --step=${step} --gitlab-host=${gitlab_host} --gitlab-port=${gitlab_port} --gitlab-user=${gitlab_user} --slack-url=${config_url} --rc=${?}
+
+deploy-k8s-simple-file-server:
+  stage: deploy
+  script:
+    - |
+      set +x
+      curl -s -o env http://k8s-secrets-service/env
+      # configure environment from secrets service
+      . ./env
+      curl -s -o slack.sh ${slack};
+      chmod +x slack.sh
+      export GOPATH=/go
+      export PATH=${GOPATH}/bin:${PATH}:${PWD}
+      echo "${HOSTNAME}" $(pwd) $(date)
+      step=dockerize
+      ./dockerize
+      rc=$?
+      if (( debug )); then echo ./slack.sh --step=${step} --gitlab-host=${gitlab_host} --gitlab-port=${gitlab_port} --gitlab-user=${gitlab_user} --slack-url=${config_url} --rc=${?}; fi
+      ./slack.sh --step=${step} --gitlab-host=${gitlab_host} --gitlab-port=${gitlab_port} --gitlab-user=${gitlab_user} --slack-url=${config_url} --rc=${?}
+
+  # artifacts:
+  #   untracked: true
+  #   paths:
+  #   - bin/
 
   only:
-    - branches@master/develop
-    - /^v.*$/ # use regexp
-    - /^release.*$/ # use regexp
-    # - /v0.*/
- except:
-# tag on the same commit _not_ processed.
-    - /^v.X.*$/
-    
-#  only:
-#    - branches@gitlab-org/gitlab-ce
-#  except:
-#    - master@gitlab-org/gitlab-ce
-    
-    
+    # v0.0.0
+    - /^v[0-9]*\.[0-9]*\.[0-9]*$/
+    # release-0.0
+    - /^release-[0-9]*\.[0-9]$/
+    # issue-0.0
+    - /^issue-[0-9]*\.[0-9]$/
+    # canary-0.0
+    - /^canary-[0-9]*\.[0-9]$/
+    # wip-0.0
+    - /^wip-[0-9]*\.[0-9]$/
+    - release
+    - release/*
+    - canary/*
+    - canary
+    - wip/*
+    - wip
+  except:
+    - master
   tags:
     - shell
     - ssh
