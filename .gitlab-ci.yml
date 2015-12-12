@@ -48,7 +48,8 @@ build-k8s-simple-file-server:
     - release
     - canary
     - prod
-    - /^\(canary|test|prod|release\)\/.*/
+    # - /^\(canary|test|prod|release\)\/.*/
+    - /^(canary|test|prod|release)\/.*/
     # - /^release\/.*/
     # - /^canary\/.*/
     # - /^prod\/.*/
