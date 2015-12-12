@@ -28,24 +28,31 @@ HOST interface :0.0.0.0
 
 *Build only target branches or tags*
 
+- [x] Releases: tags of the form release-0.1 release-100.3
+- [x] Prod: tags of the form prod-0.1 prod-100.3
+- [x] Version tags of the form: v0.0.0 or v8.1.11
+- [x] Issue tags of the form: 'issue-text-without-spaces-dash-hash-issue-number-#10'
+- [x] Canary tags of the form: 'issue-text-without-spaces-dash-hash-issue-number-#10'
+- [x] Branches or tags of the form: release, release/name, canary, canary/fix-x, prod, prod/2015-12.12
+- [x] 
+
 ```
   only:
     # v0.0.0
     - /^v[0-9]*\.[0-9]*\.[0-9]*$/
     # release-0.0
-    - /^release-[0-9]*\.[0-9]$/
-    # issue-0.0
-    - /^issue-[0-9]*\.[0-9]$/
+    - /^release-[0-9]*\.[0-9]*$/
+    # issue-any....text...-#[0-9]*
+    - /^issue-.*-#[0-9]*$/
     # canary-0.0
-    - /^canary-[0-9]*\.[0-9]$/
+    - /^canary-[0-9]*\.[0-9]*$/
     # # wip-0.0
     # - /^wip-[0-9]*\.[0-9]$/
     - release
     - release/*
     - canary/*
     - canary
-    # - wip/*
-    # - wip
+
 
   except:
     - master
