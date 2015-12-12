@@ -39,16 +39,20 @@ build-k8s-simple-file-server:
     - /^issue-[0-9]*\.[0-9]$/
     # canary-0.0
     - /^canary-[0-9]*\.[0-9]$/
-    # wip-0.0
-    - /^wip-[0-9]*\.[0-9]$/
+    # # wip-0.0
+    # - /^wip-[0-9]*\.[0-9]$/
     - release
     - release/*
     - canary/*
     - canary
-    - wip/*
-    - wip
+    # - wip/*
+    # - wip
   except:
     - master
+    - /^wip-[0-9]*\.[0-9]$/
+    - wip/*
+    - wip
+
   tags:
     - shell
     - ssh
@@ -87,16 +91,20 @@ deploy-k8s-simple-file-server:
     - /^issue-[0-9]*\.[0-9]$/
     # canary-0.0
     - /^canary-[0-9]*\.[0-9]$/
-    # wip-0.0
-    - /^wip-[0-9]*\.[0-9]$/
+    # # wip-0.0
+    # - /^wip-[0-9]*\.[0-9]$/
     - release
     - release/*
     - canary/*
     - canary
-    - wip/*
-    - wip
+    # - wip/*
+    # - wip
   except:
     - master
+    - /^wip-[0-9]*\.[0-9]$/
+    - wip/*
+    - wip
+
   tags:
     - shell
     - ssh

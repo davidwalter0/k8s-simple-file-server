@@ -22,3 +22,35 @@ PATH to serve  :/var/opt/simple-file-server/data
 PORT on which  :8080
 HOST interface :0.0.0.0
 ```
+
+---
+### Gitlab option tests to specify build targets 
+
+*Build only target branches or tags*
+
+```
+  only:
+    # v0.0.0
+    - /^v[0-9]*\.[0-9]*\.[0-9]*$/
+    # release-0.0
+    - /^release-[0-9]*\.[0-9]$/
+    # issue-0.0
+    - /^issue-[0-9]*\.[0-9]$/
+    # canary-0.0
+    - /^canary-[0-9]*\.[0-9]$/
+    # # wip-0.0
+    # - /^wip-[0-9]*\.[0-9]$/
+    - release
+    - release/*
+    - canary/*
+    - canary
+    # - wip/*
+    # - wip
+
+  except:
+    - master
+    - /^wip-[0-9]*\.[0-9]$/
+    - wip/*
+    - wip
+
+```
