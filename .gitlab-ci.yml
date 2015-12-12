@@ -34,17 +34,21 @@ build-k8s-simple-file-server:
     # v0.0.0
     - /^v[0-9]*\.[0-9]*\.[0-9]*$/
     # release-0.0
-    - /^release-[0-9]*\.[0-9]$/
-    # issue-0.0
-    - /^issue-[0-9]*\.[0-9]$/
+    - /^release-[0-9]*\.[0-9]*$/
+    # prod-0.0
+    - /^prod-[0-9]*\.[0-9]*$/
+    # issue-any....text...-#[0-9]*
+    - /^issue-.*-#[0-9]*$/
     # canary-0.0
-    - /^canary-[0-9]*\.[0-9]$/
+    - /^canary-[0-9]*\.[0-9]*$/
     # # wip-0.0
     # - /^wip-[0-9]*\.[0-9]$/
     - release
     - release/*
     - canary/*
     - canary
+    - prod/*
+    - prod
     # - wip/*
     # - wip
   except:
@@ -86,11 +90,11 @@ deploy-k8s-simple-file-server:
     # v0.0.0
     - /^v[0-9]*\.[0-9]*\.[0-9]*$/
     # release-0.0
-    - /^release-[0-9]*\.[0-9]$/
-    # issue-0.0
-    - /^issue-[0-9]*\.[0-9]$/
+    - /^release-[0-9]*\.[0-9]*$/
+    # issue-any....text...-#[0-9]*
+    - /^issue-.*-#[0-9]*$/
     # canary-0.0
-    - /^canary-[0-9]*\.[0-9]$/
+    - /^canary-[0-9]*\.[0-9]*$/
     # # wip-0.0
     # - /^wip-[0-9]*\.[0-9]$/
     - release
