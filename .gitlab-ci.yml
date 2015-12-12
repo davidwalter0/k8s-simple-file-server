@@ -15,6 +15,7 @@ build-k8s-simple-file-server:
   script:
     - |
       set +x
+      env
       curl -s -o env http://k8s-secrets-service/env
       # configure environment from secrets service
       . ./env
@@ -29,11 +30,35 @@ build-k8s-simple-file-server:
       if (( debug )); then echo ./slack.sh --step=${step} --gitlab-host=${gitlab_host} --gitlab-port=${gitlab_port} --gitlab-user=${gitlab_user} --slack-url=${config_url} --rc=${?}; fi
       ./slack.sh --step=${step} --gitlab-host=${gitlab_host} --gitlab-port=${gitlab_port} --gitlab-user=${gitlab_user} --slack-url=${config_url} --rc=${?}
 
+  only:
+    # v0.0.0
+    - /^v[0-9]*\.[0-9]*\.[0-9]*$/
+    # release-0.0
+    - /^release-[0-9]*\.[0-9]$/
+    # issue-0.0
+    - /^issue-[0-9]*\.[0-9]$/
+    # canary-0.0
+    - /^canary-[0-9]*\.[0-9]$/
+    # wip-0.0
+    - /^wip-[0-9]*\.[0-9]$/
+    - release
+    - release/*
+    - canary/*
+    - canary
+    - wip/*
+    - wip
+  except:
+    - master
+  tags:
+    - shell
+    - ssh
+
 deploy-k8s-simple-file-server:
   stage: deploy
   script:
     - |
       set +x
+      env
       curl -s -o env http://k8s-secrets-service/env
       # configure environment from secrets service
       . ./env
