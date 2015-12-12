@@ -43,13 +43,16 @@ build-k8s-simple-file-server:
     # - /^canary-[0-9]*\.[0-9]*$/
     # # wip-0.0
     # - /^wip-[0-9]*\.[0-9]$/
-    - /^\(canary|test|prod|release\)-[0-9]*\.[0-9]*$/
-    
-    - release
-    - canary
-    - prod
-    # - /^\(canary|test|prod|release\)\/.*/
+    # branches or tags named x or x/* or x-[0-9].[0-9
+    - /^(canary|test|prod|release)/
     - /^(canary|test|prod|release)\/.*/
+    - /^(canary|test|prod|release)-[0-9]*\.[0-9]*$/
+    # - /^(canary|test|prod|release)-[0-9]*\.[0-9]*$/
+    
+    # - release
+    # - canary
+    # - prod
+    # - /^(canary|test|prod|release)\/.*/
     # - /^release\/.*/
     # - /^canary\/.*/
     # - /^prod\/.*/
@@ -94,19 +97,20 @@ deploy-k8s-simple-file-server:
     # v0.0.0
     - /^v[0-9]*\.[0-9]*\.[0-9]*$/
     # release-0.0
-    - /^release-[0-9]*\.[0-9]*$/
+    # - /^release-[0-9]*\.[0-9]*$/
     # issue-any....text...-#[0-9]*
     - /^issue-.*-#[0-9]*$/
     # canary-0.0
-    - /^canary-[0-9]*\.[0-9]*$/
+    # - /^canary-[0-9]*\.[0-9]*$/
     # # wip-0.0
     # - /^wip-[0-9]*\.[0-9]$/
-    - release
-    - canary
-    - prod
-    - /^release\/.*/
-    - /^canary\/.*/
-    - /^prod\/.*/
+    # - /^release\/.*/
+    # - /^canary\/.*/
+    # - /^prod\/.*/
+    # branches or tags named x or x/* or x-[0-9].[0-9
+    - /^(canary|test|prod|release)/
+    - /^(canary|test|prod|release)\/.*/
+    - /^(canary|test|prod|release)-[0-9]*\.[0-9]*$/
     # - wip/*
     # - wip
   except:
