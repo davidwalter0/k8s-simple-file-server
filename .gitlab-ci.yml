@@ -44,10 +44,10 @@ build-k8s-simple-file-server:
     # # wip-0.0
     # - /^wip-[0-9]*\.[0-9]$/
     - release
-    - release/*
-    - canary/*
+    - release\/.*
+    - canary\/.*
     - canary
-    - prod/*
+    - prod\/.*
     - prod
     # - wip/*
     # - wip
@@ -98,9 +98,11 @@ deploy-k8s-simple-file-server:
     # # wip-0.0
     # - /^wip-[0-9]*\.[0-9]$/
     - release
-    - release/*
-    - canary/*
+    - release\/.*
+    - canary\/.*
     - canary
+    - prod\/.*
+    - prod
     # - wip/*
     # - wip
   except:
