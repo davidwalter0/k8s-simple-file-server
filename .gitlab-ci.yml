@@ -100,6 +100,7 @@ deploy-k8s-simple-file-server:
     # - wip/*
     # - wip
   except:
+
     - master
     - /^wip-[0-9]*\.[0-9]$/
     - wip/*
