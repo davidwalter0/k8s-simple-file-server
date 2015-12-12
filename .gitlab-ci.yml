@@ -43,12 +43,11 @@ build-k8s-simple-file-server:
   #   - bin/
 
   only:
-    - master
+    - wip
     - release
-    - branches@github.com/davidwalter0
     - /^v[0-9]*\.[0-9]*\.[0-9]*$/ # use regexp
-    - /^release.*$/ # use regexp
-    # - /v0.*/
+    - /^release.*$/
+
   except:
     # tag on the same commit _not_ processed.
     - /^v.X.*$/
