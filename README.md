@@ -1,10 +1,10 @@
-### k8s-simple-file-server
+### simple-file-server
 [![build status](https://128.107.14.75/ci/projects/4/status.png?ref=master)](https://128.107.14.75/ci/projects/4?ref=master)
 
 *trivial file server*
 
 ```
-k8s-simple-file-server version built at: 2015.11.22.21.25.15.+00 commit: 0ef5559ash-2015-11-22T14:44:53-05:00
+simple-file-server version built at: 2015.11.22.21.25.15.+00 commit: 0ef5559ash-2015-11-22T14:44:53-05:00
 This can be configured with the following environment variables.
 SIMPLE_FILE_SERVER_PATH to set the path to serve. The default path is /target.
 SIMPLE_FILE_SERVER_PORT to set the port to serve on. The default port is 8080

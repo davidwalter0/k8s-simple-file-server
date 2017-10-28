@@ -3,7 +3,8 @@ dir=$(dirname $(readlink -f ${0}))
 cd ${dir}
 name=${dir##*/}
 cat > Dockerfile <<EOF
-FROM centos:latest
+# FROM centos:latest
+FROM scratch
 COPY bin/${name} /${name}
 CMD [ "/${name}" ]
 EOF
